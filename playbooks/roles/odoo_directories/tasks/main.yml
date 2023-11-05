@@ -1,0 +1,62 @@
+---
+- name: Odoo directory
+  ansible.builtin.file:
+    path: "{{ odoo_dir }}"
+    state: directory
+    group: "{{ user }}"
+    owner: "{{ user }}"
+    mode: "0775"
+- name: Odoo Config directory
+  ansible.builtin.file:
+    path: "{{ odoo_config }}"
+    state: directory
+    group: "{{ user }}"
+    owner: "{{ user }}"
+    mode: "0775"
+- name: Odoo Data directory
+  ansible.builtin.file:
+    path: "{{ odoo_data }}"
+    state: directory
+    group: "{{ user }}"
+    owner: "{{ user }}"
+    mode: "0775"
+- name: Odoo Addons directory
+  ansible.builtin.file:
+    path: "{{ odoo_addons }}"
+    state: directory
+    group: "{{ user }}"
+    owner: "{{ user }}"
+    mode: "0775"
+- name: Odoo Backups directory
+  ansible.builtin.file:
+    path: "{{ odoo_backups }}"
+    state: directory
+    group: "{{ user }}"
+    owner: "{{ user }}"
+    mode: "0775"
+- name: Odoo Odoo directory
+  ansible.builtin.file:
+    path: "{{ odoo_dir }}/odoo"
+    state: directory
+    group: "{{ user }}"
+    owner: "{{ user }}"
+    mode: "0775"
+  when: odoo_server_mode == "node"
+- name: Odoo Odoo directory remove
+  ansible.builtin.file:
+    path: "{{ odoo_dir }}/odoo"
+    state: absent
+  when: odoo_server_mode == "server"
+- name: Odoo Enterprise directory
+  ansible.builtin.file:
+    path: "{{ odoo_dir }}/enterprise"
+    state: directory
+    group: "{{ user }}"
+    owner: "{{ user }}"
+    mode: "0775"
+  when: odoo_enterprise and odoo_server_mode == "node"
+- name: Odoo Enterprise directory remove
+  ansible.builtin.file:
+    path: "{{ odoo_dir }}/enterprise"
+    state: absent
+  when: odoo_server_mode == "server"

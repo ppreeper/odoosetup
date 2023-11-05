@@ -1,0 +1,18 @@
+---
+- name: Odoo fstab nfs entries
+  ansible.builtin.blockinfile:
+    path: "/etc/fstab"
+    create: true
+    mode: "0644"
+    marker: "#{mark}ODOO"
+    block: |
+      {{cluster_fs}}:/share/backups {{odoo_backups}} nfs4 rw,sync,noatime,rsize=8192,wsize=8192,timeo=15 0 0
+      {% if odoo_server_mode == "node" %}
+      # odoo
+      {{cluster_fs}}:/share/odoo/{{odoo_version}}/odoo {{odoo_dir}}/odoo nfs4 ro,async,noatime,rsize=8192,wsize=8192,timeo=15 0 0
+      {{cluster_fs}}:/share/odoo/{{odoo_version}}/enterprise {{odoo_dir}}/enterprise nfs4 ro,sync,noatime,rsize=8192,wsize=8192,timeo=15 0 0
+      # project
+      {{cluster_fs}}:/share/projects/{{project}}/conf {{odoo_config}} nfs4 ro,aync,noatime,rsize=8192,wsize=8192,timeo=15 0 0
+      {{cluster_fs}}:/share/projects/{{project}}/data {{odoo_data}} nfs4 rw,sync,noatime,rsize=8192,wsize=8192,timeo=15 0 0
+      {{cluster_fs}}:/share/projects/{{project}}/addons {{odoo_addons}} nfs4 ro,async,noatime,rsize=8192,wsize=8192,timeo=15 0 0
+      {% endif %}

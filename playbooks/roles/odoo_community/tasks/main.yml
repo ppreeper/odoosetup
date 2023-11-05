@@ -1,0 +1,10 @@
+---
+- name: Odoo community
+  ansible.builtin.git:
+    repo: "https://github.com/odoo/odoo"
+    dest: "{{ odoo_dir }}/odoo"
+    clone: true
+    update: true
+    depth: 1
+    version: "{{ odoo_version }}"
+  when: odoo_server_mode == "server"

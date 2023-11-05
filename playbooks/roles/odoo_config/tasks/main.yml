@@ -1,0 +1,9 @@
+---
+- name: Copy odoo config
+  ansible.builtin.template:
+    src: odoo.conf
+    dest: "{{odoo_config}}/odoo.conf"
+    group: "{{ user }}"
+    owner: "{{ user }}"
+    mode: "0664"
+  when: odoo_server_mode == "server"

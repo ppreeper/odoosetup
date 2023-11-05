@@ -1,0 +1,16 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: instance_baseline_u2204
+    image: ubuntu:22.04
+  - name: instance_baseline_d11
+    image: debian:11
+  - name: instance_baseline_d12
+    image: debian:12
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

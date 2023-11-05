@@ -1,0 +1,32 @@
+---
+- name: Odoo Setup
+  hosts: odoo
+  roles:
+    - hosts_template
+    - nsswitch
+    - sysctl_custom
+    - baseline
+    - nfs_common
+    - db_postgresql_repo
+    - db_postgresql_client
+    - db_postgresql_server
+    - wkhtmltopdf_gup
+    - odoo_base_packages
+    - oda_command
+    - geoip2_databases
+    - papersize
+    - odoo_user
+    - odoo_directories
+    - odoo_fstab
+    - odoo_config
+    - odoo_db_user
+    - odoo_community
+    - odoo_enterprise
+    - odoo_service
+    - odoo_service_enable
+    - caddy_install
+    - caddy
+    - caddy_service
+    - caddy_service_enable
+    - update
+    - reboot

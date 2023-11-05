@@ -1,0 +1,9 @@
+---
+- name: Update odoo db role
+  become_user: postgres
+  community.postgresql.postgresql_user:
+    name: "{{ odoo_db_username }}"
+    password: "{{ odoo_db_password }}"
+    state: present
+    role_attr_flags: "CREATEDB"
+  when: odoo_server_mode == "server"

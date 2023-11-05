@@ -1,0 +1,19 @@
+[Unit]
+Description=Odoo
+After=remote-fs.target
+
+[Service]
+Type=simple
+SyslogIdentifier=odoo
+PermissionsStartOnlye=true
+User=odoo
+Group=odoo
+ExecStart={{odoo_dir}}/odoo/odoo-bin -c {{ odoo_config }}/odoo.conf
+StandardOutput=journal+console
+Restart=on-failure
+RestartSec=10s
+LimitNOFILE=40000
+
+[Install]
+WantedBy=remote-fs.target
+
